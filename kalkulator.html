@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator by Yadi-dev</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-black flex items-center justify-center h-screen">
+    <div class="wadah bg-gray-900 p-6 rounded-lg shadow-lg">
+      <input
+        type="text"
+        class="layar w-full bg-gray-800 text-orange-500 text-right text-2xl p-2 mb-4 rounded"
+        readonly
+        placeholder="0"
+      />
+      <div class="tombol-tombol grid grid-cols-4 gap-2">
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="C"
+        >
+          C
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="←"
+        >
+          ←
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="%"
+        >
+          %
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="÷"
+        >
+          ÷
+        </button>
+
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="7"
+        >
+          7
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="8"
+        >
+          8
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="9"
+        >
+          9
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="×"
+        >
+          ×
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="4"
+        >
+          4
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="5"
+        >
+          5
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="6"
+        >
+          6
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="-"
+        >
+          -
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="1"
+        >
+          1
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="2"
+        >
+          2
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="3"
+        >
+          3
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="+"
+        >
+          +
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="0"
+        >
+          0
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="00"
+        >
+          00
+        </button>
+        <button
+          class="bg-gray-800 hover:bg-gray-700 text-orange-500 font-bold py-2 px-4 rounded"
+          data-nilai="."
+        >
+          .
+        </button>
+        <button
+          class="operasi bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+          data-nilai="="
+        >
+          =
+        </button>
+      </div>
+    </div>
+    <script>
+      const layar = document.querySelector(".layar");
+      const tombol = document.querySelectorAll("button");
+      const karakterKhusus = ["%", "×", "÷", "-", "+", "="];
+      let keluaran = "";
+      const hitung = (nilaiTombol) => {
+        switch (nilaiTombol) {
+          case "=":
+            if (keluaran !== "") {
+              keluaran = keluaran.replace("%", "/100");
+              keluaran = keluaran.replace("×", "*").replace("÷", "/");
+              keluaran = eval(keluaran);
+            }
+            break;
+          case "C":
+            keluaran = "";
+            break;
+          case "←":
+            keluaran = keluaran.toString().slice(0, -1);
+            break;
+          default:
+            if (keluaran === "" && karakterKhusus.includes(nilaiTombol)) return;
+            keluaran += nilaiTombol;
+        }
+        layar.value = keluaran;
+      };
+      tombol.forEach((btn) => {
+        btn.addEventListener("click", (e) => hitung(e.target.dataset.nilai));
+      });
+    </script>
+  </body>
+</html>
